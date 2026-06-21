@@ -437,6 +437,10 @@ button {
   margin-bottom: var(--space-md);
 }
 
+.dashboard-card__preview--horizontal {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .dashboard-card__preview img {
   width: 100%;
   aspect-ratio: 1;

@@ -8,10 +8,10 @@
 // ==========================================================================
 
 const ROUTES = {
-  home: "/",
-  garage: "/garage",
-  tools: "/caja-de-herramientas",
-  family: "/familia"
+  home: "#/",
+  garage: "#/garage",
+  tools: "#/caja-de-herramientas",
+  family: "#/familia"
 };
 
 const ROUTE_SECTIONS = {
@@ -125,46 +125,45 @@ const UNIT_DEFINITIONS = {
 // ==========================================================================
 
 function initRouter() {
-  window.addEventListener("popstate", handlePopState);
+  window.addEventListener("hashchange", handleHashChange);
   handleInitialRoute();
 }
 
 function handleInitialRoute() {
-  const path = window.location.pathname.replace(/\/index\.html$/, "") || "/";
-  renderRoute(path);
+  const hash = window.location.hash || ROUTES.home;
+  renderRoute(hash);
 }
 
-function handlePopState() {
-  const path = window.location.pathname;
-  renderRoute(path);
+function handleHashChange() {
+  const hash = window.location.hash;
+  renderRoute(hash);
 }
 
 function navigateTo(route) {
-  window.history.pushState({}, "", route);
-  renderRoute(route);
+  window.location.hash = route;
 }
 
-function renderRoute(path) {
-  const normalizedPath = path.replace(/\/index\.html$/, "") || "/";
-  
+function renderRoute(hash) {
+  const normalizedHash = hash || ROUTES.home;
+
   // Hide all sections first
   document.querySelectorAll(".section, .hero").forEach(el => {
     el.hidden = true;
   });
 
   // Show sections for current route
-  const sectionsToShow = ROUTE_SECTIONS[normalizedPath] || ROUTE_SECTIONS[ROUTES.home];
+  const sectionsToShow = ROUTE_SECTIONS[normalizedHash] || ROUTE_SECTIONS[ROUTES.home];
   sectionsToShow.forEach(sectionId => {
     const section = document.getElementById(sectionId);
     if (section) section.hidden = false;
   });
 
   // Update active nav
-  const routeKey = Object.keys(ROUTES).find(key => ROUTES[key] === normalizedPath) || "home";
+  const routeKey = Object.keys(ROUTES).find(key => ROUTES[key] === normalizedHash) || "home";
   setActiveNav(routeKey);
 
   // Render dashboard if on home
-  if (normalizedPath === ROUTES.home) {
+  if (normalizedHash === ROUTES.home) {
     renderDashboard();
   }
 }
@@ -187,7 +186,7 @@ function getToolList() {
 }
 
 function getFamilyPhotoCount() {
-  return FAMILY_IMAGES.filter(img => img).length;
+  return FAMILY_IMAGES.filter(img => img && img.trim() !== "").length;
 }
 
 function renderDashboard() {
@@ -237,9 +236,9 @@ function renderDashboard() {
       </div>
       <div class="dashboard-card__stat">${photoCount}</div>
       <div class="dashboard-card__stat-label">Fotografías</div>
-      <div class="dashboard-card__preview">
-        ${FAMILY_IMAGES.slice(0, 9).map((img, i) => 
-          img ? `<img src="${img}" alt="Foto ${i + 1}" loading="lazy">` : '<div class="empty-slot"></div>'
+      <div class="dashboard-card__preview dashboard-card__preview--horizontal">
+        ${FAMILY_IMAGES.slice(0, 3).map((img, i) =>
+          img && img.trim() !== "" ? `<img src="${img}" alt="Foto ${i + 1}" loading="lazy">` : '<div class="empty-slot"></div>'
         ).join('')}
       </div>
       <button type="button" class="btn btn--primary" onclick="navigateTo('${ROUTES.family}')">Ver Galería</button>
