@@ -671,7 +671,7 @@ button {
 }
 
 .tool-card {
-  background: var(--color-bg);
+  background: #f8f8f6;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
