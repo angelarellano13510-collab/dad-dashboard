@@ -1,7 +1,3 @@
-/**
- * Portal de Papá — Main Application Script
- * Vanilla JS single-page app with localStorage persistence.
- */
 
 // ==========================================================================
 // --- Configuration ---
@@ -21,24 +17,24 @@ const ROUTE_SECTIONS = {
   [ROUTES.family]: ["familia"]
 };
 
-/** Add family photo filenames here when you drop images in images/assets/ */
+
 const FAMILY_IMAGES = [
-  "images/assets/family-01.jpg",
-  "images/assets/family-02.jpg",
-  "images/assets/family-03.jpg",
-  "images/assets/family-04.jpg",
-  "images/assets/family-05.jpg",
-  "images/assets/family-06.jpg",
-  "images/assets/family-07.jpg",
-  "images/assets/family-08.jpg",
-  "images/assets/family-09.jpg",
-  "images/assets/family-10.jpg",
-  "images/assets/family-11.jpg",
-  "images/assets/family-12.jpg",
-  "images/assets/family-13.jpg",
-  "images/assets/family-14.jpg",
-  "images/assets/family-15.jpg",
-  "images/assets/family-16.jpg"
+  "images/assets/family-01.jpeg",
+  "images/assets/family-02.jpeg",
+  "images/assets/family-03.jpeg",
+  "images/assets/family-04.jpeg",
+  "images/assets/family-05.jpeg",
+  "images/assets/family-06.jpeg",
+  "images/assets/family-07.jpeg",
+  "images/assets/family-08.jpeg",
+  "images/assets/family-09.jpeg",
+  "images/assets/family-10.jpeg",
+  "images/assets/family-11.jpeg",
+  "images/assets/family-12.jpeg",
+  "images/assets/family-13.jpeg",
+  "images/assets/family-14.jpeg",
+  "images/assets/family-15.jpeg",
+  "images/assets/family-16.jpeg"
 ];
 
 const STORAGE_KEYS = {
@@ -47,20 +43,24 @@ const STORAGE_KEYS = {
 };
 
 const MAINTENANCE_CATEGORIES = [
-  { key: "mileage", label: "Registro de kilometraje" },
   { key: "oil", label: "Cambios de aceite" },
   { key: "battery", label: "Reemplazo de batería" },
   { key: "filters", label: "Filtros" },
   { key: "sparkPlugs", label: "Bujías" },
   { key: "diskBrakes", label: "Discos de freno" },
-  { key: "brakePads", label: "Pastillas de freno" }
+  { key: "brakePads", label: "Balatas de freno" },
+  { key: "tires", label: "Llantas" },
+  { key: "alignment", label: "Alineación y balanceo" },
+  { key: "coolant", label: "Anticongelante" },
+  { key: "transmission", label: "Aceite de Transmisión" },
+  { key: "suspension", label: "Suspensión" }
 ];
 
 const STATUS_OPTIONS = [
   { value: "ok", label: "O.K." },
-  { value: "soon", label: "Change soon" },
-  { value: "urgent", label: "Urgent" },
-  { value: "extreme", label: "Extremely urgent" }
+  { value: "soon", label: "Cambiar Pronto" },
+  { value: "urgent", label: "Urgente" },
+  { value: "extreme", label: "Muy Urgente" }
 ];
 
 // E12 standard resistor values (ohms)
@@ -256,7 +256,7 @@ function generateId() {
 function createDefaultMaintenance() {
   const maintenance = {};
   MAINTENANCE_CATEGORIES.forEach(({ key }) => {
-    maintenance[key] = key === "mileage"
+    maintenance[key] = key === "oil"
       ? { status: "ok", entries: [] }
       : { status: "ok" };
   });
