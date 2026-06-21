@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal de Papá — Dashboard personal de ingeniería y garage">
+  <title>Portal de Papá</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="#hero" class="logo" aria-label="Portal de Papá — Inicio">Portal de Papá</a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="Secciones principales">
+        <a href="#garage" class="nav-link" data-section="garage">Garage</a>
+        <a href="#herramientas" class="nav-link" data-section="herramientas">Caja de herramientas</a>
+        <a href="#familia" class="nav-link" data-section="familia">Familia</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <h1 class="hero__title">Portal de Papá</h1>
+        <p class="hero__subtitle">Bienvenido Ingeniero Angel</p>
+        <p class="hero__text" id="welcome-text">
+          Este es tu espacio personal para gestionar vehículos, herramientas de ingeniería y recuerdos familiares. Edita este párrafo cuando quieras.
+        </p>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="section" id="dashboard" aria-labelledby="dashboard-heading">
+      <div class="container">
+        <div class="dashboard-grid" id="dashboard-grid">
+          <!-- Dashboard cards rendered by script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Garage -->
+    <section class="section" id="garage" aria-labelledby="garage-heading" hidden>
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title" id="garage-heading">Garage</h2>
+          <button type="button" class="btn-add" id="btn-add-vehicle" aria-label="Agregar vehículo">
+            <span aria-hidden="true">+</span>
+          </button>
+        </div>
+        <div class="vehicle-list" id="vehicle-list" role="list" aria-live="polite">
+          <!-- Vehicle cards rendered by script.js -->
+        </div>
+        <p class="empty-state" id="garage-empty">No hay vehículos registrados. Presiona + para agregar uno.</p>
+      </div>
+    </section>
+
+    <!-- Caja de herramientas -->
+    <section class="section section--alt" id="herramientas" aria-labelledby="tools-heading" hidden>
+      <div class="container">
+        <h2 class="section-title" id="tools-heading">Caja de herramientas</h2>
+        <p class="section-desc">Calculadoras y referencias para el ingeniero.</p>
+
+        <div class="tools-grid">
+
+          <!-- Ohm's Law -->
+          <article class="tool-card" data-tool="ohms">
+            <div class="tool-card__toggle">
+              <span class="tool-card__title">Ley de Ohm</span>
+              <button type="button" class="btn--reset" id="reset-ohms" aria-label="Reiniciar Ley de Ohm">Reiniciar</button>
+            </div>
+            <div class="tool-card__body" id="tool-ohms">
+              <p class="tool-hint">V = I × R</p>
+              <div class="tool-form">
+                <label for="ohm-solve">Calcular</label>
+                <select id="ohm-solve">
+                  <option value="V">Voltaje (V)</option>
+                  <option value="I">Corriente (I)</option>
+                  <option value="R">Resistencia (R)</option>
+                </select>
+                <label for="ohm-a">Valor A</label>
+                <input type="number" id="ohm-a" step="any" placeholder="0">
+                <label for="ohm-b">Valor B</label>
+                <input type="number" id="ohm-b" step="any" placeholder="0">
+                <p class="tool-result" id="ohm-result" aria-live="polite">—</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Power Calculator -->
+          <article class="tool-card" data-tool="power">
+            <div class="tool-card__toggle">
+              <span class="tool-card__title">Calculadora de potencia</span>
+              <button type="button" class="btn--reset" id="reset-power" aria-label="Reiniciar Calculadora de potencia">Reiniciar</button>
+            </div>
+            <div class="tool-card__body" id="tool-power">
+              <div class="tool-form">
+                <label for="power-mode">Fórmula</label>
+                <select id="power-mode">
+                  <option value="vi">P = V × I</option>
+                  <option value="i2r">P = I² × R</option>
+                  <option value="v2r">P = V² / R</option>
+                </select>
+                <label for="power-a" id="power-a-label">Voltaje (V)</label>
+                <input type="number" id="power-a" step="any" placeholder="0">
+                <label for="power-b" id="power-b-label">Corriente (A)</label>
+                <input type="number" id="power-b" step="any" placeholder="0">
+                <p class="tool-result" id="power-result" aria-live="polite">—</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Unit Converter -->
+          <article class="tool-card" data-tool="units">
+            <div class="tool-card__toggle">
+              <span class="tool-card__title">Conversor de unidades</span>
+              <button type="button" class="btn--reset" id="reset-units" aria-label="Reiniciar Conversor de unidades">Reiniciar</button>
+            </div>
+            <div class="tool-card__body" id="tool-units">
+              <div class="tool-form">
+                <label for="unit-category">Categoría</label>
+                <select id="unit-category">
+                  <option value="length">Longitud</option>
+                  <option value="temperature">Temperatura</option>
+                  <option value="pressure">Presión</option>
+                </select>
+                <label for="unit-from">De</label>
+                <select id="unit-from"></select>
+                <label for="unit-value">Valor</label>
+                <input type="number" id="unit-value" step="any" placeholder="0">
+                <label for="unit-to">A</label>
+                <select id="unit-to"></select>
+                <p class="tool-result" id="unit-result" aria-live="polite">—</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Wire Gauge -->
+          <article class="tool-card" data-tool="wire">
+            <div class="tool-card__toggle">
+              <span class="tool-card__title">Calibre de cable (AWG)</span>
+              <button type="button" class="btn--reset" id="reset-wire" aria-label="Reiniciar Calibre de cable">Reiniciar</button>
+            </div>
+            <div class="tool-card__body" id="tool-wire">
+              <div class="tool-form">
+                <label for="wire-awg">AWG</label>
+                <input type="number" id="wire-awg" min="0" max="40" step="1" placeholder="14">
+                <p class="tool-result" id="wire-result" aria-live="polite">—</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- LED Resistor -->
+          <article class="tool-card" data-tool="led">
+            <div class="tool-card__toggle">
+              <span class="tool-card__title">Resistencia para LED</span>
+              <button type="button" class="btn--reset" id="reset-led" aria-label="Reiniciar Resistencia para LED">Reiniciar</button>
+            </div>
+            <div class="tool-card__body" id="tool-led">
+              <div class="tool-form">
+                <label for="led-vsupply">Voltaje de fuente (V)</label>
+                <input type="number" id="led-vsupply" step="any" placeholder="12">
+                <label for="led-vf">Voltaje LED Vf (V)</label>
+                <input type="number" id="led-vf" step="any" placeholder="2.0">
+                <label for="led-if">Corriente If (mA)</label>
+                <input type="number" id="led-if" step="any" placeholder="20">
+                <p class="tool-result" id="led-result" aria-live="polite">—</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Resistor Color Code -->
+          <article class="tool-card" data-tool="resistor">
+            <div class="tool-card__toggle">
+              <span class="tool-card__title">Código de colores</span>
+              <button type="button" class="btn--reset" id="reset-resistor" aria-label="Reiniciar Código de colores">Reiniciar</button>
+            </div>
+            <div class="tool-card__body" id="tool-resistor">
+              <div class="tool-form tool-form--resistor">
+                <div class="resistor-bands" id="resistor-preview" aria-hidden="true">
+                  <span class="resistor-band" id="band-1"></span>
+                  <span class="resistor-band" id="band-2"></span>
+                  <span class="resistor-band" id="band-3"></span>
+                  <span class="resistor-band" id="band-4"></span>
+                </div>
+                <label for="res-band1">Banda 1</label>
+                <select id="res-band1"></select>
+                <label for="res-band2">Banda 2</label>
+                <select id="res-band2"></select>
+                <label for="res-band3">Multiplicador</label>
+                <select id="res-band3"></select>
+                <label for="res-band4">Tolerancia</label>
+                <select id="res-band4"></select>
+                <p class="tool-result" id="resistor-result" aria-live="polite">—</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Familia -->
+    <section class="section" id="familia" aria-labelledby="familia-heading" hidden>
+      <div class="container">
+        <h2 class="section-title" id="familia-heading">Familia</h2>
+        <p class="section-desc">Recuerdos y momentos especiales.</p>
+        <div class="gallery" id="family-gallery" role="list">
+          <!-- Gallery items rendered by script.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-quote">Desarrollado por Angel, para el mejor ingeniero que conozco.</p>
+    </div>
+  </footer>
+
+  <!-- Vehicle Modal -->
+  <dialog class="modal" id="vehicle-modal" aria-labelledby="modal-title" aria-modal="true">
+    <form class="modal__form" id="vehicle-form" method="dialog">
+      <div class="modal__header">
+        <h3 class="modal__title" id="modal-title">Nuevo vehículo</h3>
+        <button type="button" class="modal__close" id="modal-close" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="modal__body">
+        <input type="hidden" id="vehicle-id" value="">
+        <div class="form-group">
+          <label for="vehicle-brand">Marca</label>
+          <input type="text" id="vehicle-brand" required placeholder="Ej. Land Rover">
+        </div>
+        <div class="form-group">
+          <label for="vehicle-model">Modelo</label>
+          <input type="text" id="vehicle-model" required placeholder="Ej. Defender 110">
+        </div>
+        <div class="form-group">
+          <label for="vehicle-year">Año</label>
+          <input type="text" id="vehicle-year" placeholder="Ej. 2022" inputmode="numeric">
+        </div>
+        <div class="form-group">
+          <label for="vehicle-notes">Notas / comentarios</label>
+          <textarea id="vehicle-notes" rows="3" placeholder="Observaciones, historial, etc."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="vehicle-image">Imagen</label>
+          <input type="file" id="vehicle-image" accept="image/*">
+          <div class="image-preview" id="image-preview" hidden>
+            <img id="preview-img" src="" alt="Vista previa del vehículo">
+          </div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button type="button" class="btn btn--ghost" id="modal-cancel">Cancelar</button>
+        <button type="submit" class="btn btn--primary">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
